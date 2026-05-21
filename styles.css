@@ -577,13 +577,13 @@ footer p {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 24px;
+  gap: 0;
   border-bottom: none;
 }
 
 .like-heading {
   max-width: 790px;
-  margin: 0;
+  margin: 0 0 16px;
   font-size: clamp(2.75rem, 4.75vw, 4.15rem);
   font-weight: 360;
   line-height: 0.96;
@@ -592,9 +592,21 @@ footer p {
 
 .like-subtext {
   max-width: 650px;
-  margin: 0;
+  margin: 0 0 24px;
   color: var(--muted);
   font-size: 1.05rem;
+}
+
+.heart-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.like-byline {
+  margin-top: 0;
 }
 
 .heart-btn {
