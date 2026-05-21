@@ -572,6 +572,17 @@ Steps:
           </ul>
         </div>
       </section>
+
+      <section id="like" class="section like-section">
+        <h2 class="like-heading">Found this helpful?<br>Give it a heart!</h2>
+        <p class="like-subtext">For every designer in the world being threatened by AI.</p>
+        <button class="heart-btn" id="heartBtn" aria-label="Like this page" aria-pressed="false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </button>
+        <h3 class="heart-count" id="heartCount">—</h3>
+      </section>
     </main>
 
     <footer>
@@ -606,6 +617,59 @@ Steps:
       window.addEventListener("resize", () => {
         document.body.style.paddingTop = header.offsetHeight + "px";
       }, { passive: true });
+    </script>
+
+    <!-- Firebase Realtime Database -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script>
+      // ── Firebase config ───────────────────────────────────────────
+      // Create a free project at https://console.firebase.google.com
+      // then paste your config below and enable Realtime Database.
+      const firebaseConfig = {
+        apiKey: "",
+        databaseURL: "",
+      };
+
+      const heartBtn = document.getElementById("heartBtn");
+      const heartCountEl = document.getElementById("heartCount");
+      const LIKED_KEY = "ai-prototype-101-liked";
+
+      let isLiked = localStorage.getItem(LIKED_KEY) === "true";
+      let likesRef = null;
+
+      if (firebaseConfig.apiKey && firebaseConfig.databaseURL) {
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.database(app);
+        likesRef = db.ref("likes/count");
+        likesRef.on("value", (snap) => {
+          heartCountEl.textContent = `${snap.val() || 0} hearts`;
+        });
+      } else {
+        heartCountEl.textContent = "connect Firebase to see count";
+      }
+
+      if (isLiked) {
+        heartBtn.classList.add("liked");
+        heartBtn.setAttribute("aria-pressed", "true");
+      }
+
+      heartBtn.addEventListener("click", () => {
+        isLiked = !isLiked;
+        localStorage.setItem(LIKED_KEY, isLiked);
+        heartBtn.classList.toggle("liked", isLiked);
+        heartBtn.setAttribute("aria-pressed", String(isLiked));
+
+        heartBtn.style.transform = "scale(1.3)";
+        setTimeout(() => { heartBtn.style.transform = ""; }, 150);
+
+        if (likesRef) {
+          likesRef.transaction((current) => {
+            const n = current || 0;
+            return isLiked ? n + 1 : Math.max(n - 1, 0);
+          });
+        }
+      });
     </script>
   </body>
 </html>
