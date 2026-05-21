@@ -605,6 +605,14 @@ footer p {
   margin-bottom: 40px;
 }
 
+.like-closing {
+  max-width: 560px;
+  margin: 0 0 24px;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
 .like-byline {
   margin-top: 0;
 }
