@@ -536,13 +536,21 @@ Steps:
     </footer>
 
     <script>
+      history.scrollRestoration = "manual";
+
       const header = document.querySelector(".site-header");
+
+      function syncPadding() {
+        document.body.style.paddingTop = header.offsetHeight + "px";
+      }
+      syncPadding();
+      window.addEventListener("resize", syncPadding, { passive: true });
 
       let lastScrollY = window.scrollY;
 
       window.addEventListener("scroll", () => {
         const currentScrollY = window.scrollY;
-        if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        if (currentScrollY > lastScrollY && currentScrollY > header.offsetHeight) {
           header.classList.add("header-hidden");
         } else {
           header.classList.remove("header-hidden");
@@ -553,11 +561,8 @@ Steps:
       function scrollToSection(hash) {
         const target = document.querySelector(hash);
         if (!target) return;
-
-        const headerHeight = header ? header.offsetHeight : 0;
-        const targetTop = target.offsetTop - headerHeight - 24;
-
-        window.scrollTo(0, Math.max(targetTop, 0));
+        const top = target.getBoundingClientRect().top + window.scrollY - header.offsetHeight - 16;
+        window.scrollTo(0, Math.max(top, 0));
       }
 
       document.querySelectorAll('a[href^="#"]').forEach((link) => {
@@ -574,6 +579,8 @@ Steps:
       window.addEventListener("load", () => {
         if (window.location.hash) {
           requestAnimationFrame(() => scrollToSection(window.location.hash));
+        } else {
+          window.scrollTo(0, 0);
         }
       });
     </script>
