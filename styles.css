@@ -116,7 +116,7 @@ footer a:hover {
   margin: 0 0 10px;
   color: var(--green);
   font-size: 0.78rem;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 0;
   text-transform: uppercase;
 }
@@ -552,6 +552,63 @@ footer p {
   margin: 0;
 }
 
+.intro-why {
+  margin: 0 0 28px;
+  color: var(--muted);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.intro-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.intro-cards article {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px 21px;
+  background: var(--surface);
+}
+
+.intro-cards article > span {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  flex-shrink: 0;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  color: var(--ink);
+  font-size: 0.78rem;
+}
+
+.intro-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.intro-cards h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.intro-cards p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
 @media (max-width: 980px) {
   body {
     padding-top: 120px;
@@ -575,6 +632,7 @@ footer p {
     min-height: auto;
   }
 
+  .intro-cards,
   .tool-groups,
   .prompt-grid,
   .skill-layout,
@@ -637,6 +695,7 @@ footer p {
     text-align: center;
   }
 
+  .intro-cards,
   .tool-groups,
   .prompt-grid,
   .skill-layout,
