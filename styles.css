@@ -113,7 +113,9 @@ footer a:hover {
 }
 
 .byline {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   margin-top: 40px;
   font-size: 1rem;
   font-weight: 500;
