@@ -539,18 +539,6 @@ Steps:
     <script>
       const header = document.querySelector(".site-header");
 
-      let lastScrollY = 0;
-
-      window.addEventListener("scroll", () => {
-        const currentScrollY = window.scrollY;
-        if (currentScrollY > lastScrollY && currentScrollY > header.offsetHeight) {
-          header.classList.add("header-hidden");
-        } else {
-          header.classList.remove("header-hidden");
-        }
-        lastScrollY = currentScrollY;
-      }, { passive: true });
-
       function scrollToSection(hash) {
         const target = document.querySelector(hash);
         if (!target) return;
@@ -569,8 +557,13 @@ Steps:
       });
 
       window.addEventListener("load", () => {
+        document.body.style.paddingTop = header.offsetHeight + "px";
         window.scrollTo(0, 0);
       });
+
+      window.addEventListener("resize", () => {
+        document.body.style.paddingTop = header.offsetHeight + "px";
+      }, { passive: true });
     </script>
   </body>
 </html>
