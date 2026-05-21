@@ -112,6 +112,19 @@ footer a:hover {
   max-width: 720px;
 }
 
+.byline {
+  display: inline-block;
+  margin-top: 40px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.byline:hover {
+  color: var(--ink);
+}
+
 .eyebrow {
   margin: 0 0 10px;
   color: var(--green);
