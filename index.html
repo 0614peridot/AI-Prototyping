@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Prototyping Guide for Product Designers</title>
     <link rel="stylesheet" href="styles.css" />
+    <script>history.scrollRestoration = 'manual';</script>
   </head>
   <body>
     <header class="site-header">
@@ -536,17 +537,9 @@ Steps:
     </footer>
 
     <script>
-      history.scrollRestoration = "manual";
-
       const header = document.querySelector(".site-header");
 
-      function syncPadding() {
-        document.body.style.paddingTop = header.offsetHeight + "px";
-      }
-      syncPadding();
-      window.addEventListener("resize", syncPadding, { passive: true });
-
-      let lastScrollY = window.scrollY;
+      let lastScrollY = 0;
 
       window.addEventListener("scroll", () => {
         const currentScrollY = window.scrollY;
@@ -569,7 +562,6 @@ Steps:
         link.addEventListener("click", (event) => {
           const hash = link.getAttribute("href");
           if (!hash || hash === "#") return;
-
           event.preventDefault();
           history.pushState(null, "", hash);
           scrollToSection(hash);
@@ -577,11 +569,7 @@ Steps:
       });
 
       window.addEventListener("load", () => {
-        if (window.location.hash) {
-          requestAnimationFrame(() => scrollToSection(window.location.hash));
-        } else {
-          window.scrollTo(0, 0);
-        }
+        window.scrollTo(0, 0);
       });
     </script>
   </body>
